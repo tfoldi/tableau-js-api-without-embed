@@ -52,6 +52,8 @@ updateChartWithData = (datasets)->
           yLabels: ["Profit"]
         options:
           animation: { duration: 1000}
+          responsive: true
+          maintainAspectRatio: false
           scales:
             yAxes: [{
               scaleLabel: { display: true, labelString: "Profit" }
@@ -89,7 +91,7 @@ initChart = ->
       graphDataByCategory = _.chain(table.getData())
         .map(toChartEntry)
         .groupBy("category")
-        .map (data, label)-> {label: label, data: data, xLabels: ["Sales"], yLabels: ["Profit"]}
+        .map (data, label)-> {label: label, data: data}
         .value()
 
       # Call the updater function to fill the chart
