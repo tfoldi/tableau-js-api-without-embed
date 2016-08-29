@@ -46,8 +46,19 @@ updateChartWithData = (datasets)->
   else
     myChart = new Chart document.getElementById("chart"),
         type: "bubble"
-        data: datasets: datasets
-        options: animation: duration: 1000
+        data:
+          datasets: datasets
+          xLabels: ["Sales"]
+          yLabels: ["Profit"]
+        options:
+          animation: { duration: 1000}
+          scales:
+            yAxes: [{
+              scaleLabel: { display: true, labelString: "Profit" }
+            }]
+            xAxes: [{
+              scaleLabel: { display: true, labelString: "Sales" }
+            }]
 
 
 initChart = ->
@@ -65,7 +76,7 @@ initChart = ->
       colIdxMaps[c.getFieldName()] = c.getIndex() for c in table.getColumns()
 
       # Decompose the ids
-      {Category, Region, State, Sales, Profit} = colIdxMaps
+      {Category, Sales, Profit} = colIdxMaps
 
       # converts a Tableau Table row into a JSChart data entry
       toChartEntry = (d)->
@@ -78,9 +89,7 @@ initChart = ->
       graphDataByCategory = _.chain(table.getData())
         .map(toChartEntry)
         .groupBy("category")
-        .map (v,k)-> {name: k, values: v}
-        .reject (e)-> _.isEmpty(e.values)
-        .map (e)-> {label: e.name, data: e.values}
+        .map (data, label)-> {label: label, data: data, xLabels: ["Sales"], yLabels: ["Profit"]}
         .value()
 
       # Call the updater function to fill the chart

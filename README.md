@@ -4,7 +4,7 @@
 
 This is a Proof-Of-Concept example of using the Tableau Javascript SDK
 without any embeds. For more details on the inner workings of this
-sample please check the [Databoss Blog](https://databoss.starschema.net)
+sample please check the [Databoss Blog](http://databoss.starschema.net)
 
 The source code is written in [CoffeeScript](http://coffeescript.org)
 because writing plain JavaScript is a slow and error-prone process.
