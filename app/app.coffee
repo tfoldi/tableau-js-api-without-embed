@@ -18,11 +18,6 @@ errorWrapped = (context, fn)->
     catch err
       console.error "Got error during '", context, "' : ", err
 
-# The default options for the chart / dataset we'll display
-DEFAULT_DATASET_OPTS =
-        backgroundColor: '#ff6384'
-        hoverBackgroundColor: '#ff6355'
-
 DATASET_COLORS =
   "Furniture": "#f28e2b"
   Technology: "#4e79a7"
@@ -85,7 +80,7 @@ initChart = ->
         .groupBy("category")
         .map (v,k)-> {name: k, values: v}
         .reject (e)-> _.isEmpty(e.values)
-        .map (e)-> _.extend( {label: e.name, data: e.values}, DEFAULT_DATASET_OPTS )
+        .map (e)-> {label: e.name, data: e.values}
         .value()
 
       # Call the updater function to fill the chart
