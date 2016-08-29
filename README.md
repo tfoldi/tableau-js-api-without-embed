@@ -1,5 +1,7 @@
 # Tableau JS API without embed
 
+![Tableau JS API without embed example](https://i.imgur.com/LqIKxoL.gif)
+
 This is a Proof-Of-Concept example of using the Tableau Javascript SDK
 without any embeds. For more details on the inner workings of this
 sample please check the [Databoss Blog](https://databoss.starschema.net)
