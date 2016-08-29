@@ -15,7 +15,7 @@ gulp.task 'coffee', ->
   .on 'error', gutil.log
 
 gulp.task 'watch',
-['coffee'], # After all build tasks are done
+[],
 ->
   gulp.watch parameters.app_path + '/**/*.coffee', ['coffee' ]
   gulp.watch parameters.assets_path, ['assets']
