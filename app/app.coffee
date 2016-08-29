@@ -18,20 +18,49 @@ errorWrapped = (context, fn)->
     catch err
       console.error "Got error during '", context, "' : ", err
 
+DATASET_COLORS =
+  "Furniture": "#f28e2b"
+  Technology: "#4e79a7"
+  "Office Supplies": "#e15759"
+
+
+
+# set both colors for the dataset
+addColorToDataset = (d, color)->
+  d.backgroundColor = color
+  d.hoverBackgroundColor = color
 
 # Helper fn that creates a new chart with the required data
-updateChartWithData = (data)->
-  ctx = document.getElementById("chart")
-  myChart = new Chart ctx,
-      type: "bubble"
-      data: datasets: [{
-        label: 'Tableau Data'
-        data: data
-        backgroundColor: '#ff6384'
-        hoverBackgroundColor: '#ff6355'
-      }]
-      options: animation: duration: 1000
+updateChartWithData = (datasets)->
 
+  # At this point we should only have datasets that are not empty
+  addColorToDataset(d, DATASET_COLORS[d.data[0].category]) for d in datasets
+
+  if myChart
+    # Update the chart data sets by only updating the data.
+    # This way we'll have transition animations
+    for d,i in datasets
+      _.extend( myChart.data.datasets[i], d )
+    myChart.update()
+
+  else
+    myChart = new Chart document.getElementById("chart"),
+        type: "bubble"
+        data:
+          datasets: datasets
+          xLabels: ["Sales"]
+          yLabels: ["Profit"]
+        options:
+          animation: { duration: 1000}
+          responsive: true
+          maintainAspectRatio: false
+          scales:
+            yAxes: [{
+              scaleLabel: { display: true, labelString: "Profit" }
+            }]
+            xAxes: [{
+              scaleLabel: { display: true, labelString: "Sales" }
+            }]
 
 
 initChart = ->
@@ -49,15 +78,24 @@ initChart = ->
       colIdxMaps[c.getFieldName()] = c.getIndex() for c in table.getColumns()
 
       # Decompose the ids
-      {Sales, Profit} = colIdxMaps
+      {Category, Sales, Profit} = colIdxMaps
 
-      # map the tableau table data to chart data
-      graphData = for d in table.getData()
-        {x: parseFloat(d[Sales].value), y: parseFloat(d[Profit].value), r: 15}
+      # converts a Tableau Table row into a JSChart data entry
+      toChartEntry = (d)->
+        x: parseFloat(d[Sales].value).toFixed(2)
+        y: parseFloat(d[Profit].value).toFixed(2)
+        category: d[Category].value
+        r: 5
 
+      # group by the category
+      graphDataByCategory = _.chain(table.getData())
+        .map(toChartEntry)
+        .groupBy("category")
+        .map (data, label)-> {label: label, data: data}
+        .value()
 
       # Call the updater function to fill the chart
-      errorWrapped("Updating the chart", updateChartWithData)(graphData)
+      errorWrapped("Updating the chart", updateChartWithData)(graphDataByCategory)
 
   # Handler that gets the selected data from tableau and sends it to the chart
   # display function
