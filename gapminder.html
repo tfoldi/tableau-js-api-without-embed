@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- source: allanwalkerit.x10host.com -->
+
+<head>
+    <title>Animated Gapminder with Tableau</title>
+    <script src="https://public.tableau.com/javascripts/api/tableau-2.0.0.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <style>
+        body {
+            margin: auto;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #tableauViz1 {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id=container>
+        <div id=tableauViz></div>
+    </div>
+</body>
+<script>
+    var viz, one, workbooka, activeSheet, Worksheet, worksheet;
+    $(function() {
+        var onePh = document.getElementById("tableauViz1");
+        var oneUrl = "https://public.tableau.com/views/RoslinginTableau_3/RoslingGapminder?:showVizHome=no&:display_spinner=no&:jsdebug=n&:embed=y&:display_overlay=no&:display_static_image=no&:animate_transition=yes";
+        var oneOptions = {
+            width: "100%",
+            height: "100vh",
+            hideTabs: false,
+            onFirstInteractive: function() {
+                workbooka = viz1.getWorkbook();
+                window.setTimeout("animate()", "1000");
+            }
+        };
+        viz1 = new tableauSoftware.Viz(onePh, oneUrl, oneOptions);
+        i = 1;
+    });
+
+    function animate() {
+        if (i <= 62) {
+            window.setTimeout("animate()", "2000");
+            animate1(i);
+            i++;
+        }
+    }
+
+    function animate1(a) {
+        workbooka.changeParameterValueAsync("ANIMATE", [a]);
+    }
+</script>
+
+</html>
