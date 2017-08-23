@@ -1,0 +1,167 @@
+/* Some style */
+.inline {
+  display: inline-block;
+}
+
+#dials {
+  height: 320px;
+  overflow: hidden;
+}
+
+.dial {
+  display: block;
+  position: relative;
+  height: 320px;
+}
+
+.dial.hidden {
+  display: none;
+}
+
+#jog_dial_one {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: 20px auto;
+  background: url('../img/base_one_bg.png?1392325180');
+  background-repeat: none;
+}
+#jog_dial_one #jog_dial_one_knob {
+  background: url('../img/base_one_knob.png?1392325228');
+}
+
+#jog_dial_one_meter {
+  width: 200px;
+  height: 10px;
+  margin: 20px auto 30px;
+  background: #999;
+  overflow: hidden;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+#jog_dial_one_meter div {
+  position: relative;
+  width: 0;
+  height: 100%;
+  background: #80e93a;
+}
+
+#jog_dial_two {
+  width: 260px;
+  height: 260px;
+  margin: 20px auto 0;
+}
+
+#jog_dial_two_meter {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 1.2em;
+}
+
+.code_block {
+  padding: 10px 10px;
+  background: #eee;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* Bootsrtrap Jumbotron style below */
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+.header h3 {
+  padding-bottom: 19px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+  text-align: center;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  padding: 15px 5px 25px;
+  background: #eee;
+}
+
+.jumbotron .btn {
+  font-size: 21px;
+}
+
+.jumbotron .btn-group {
+  display: inline-block;
+  margin: 10px 0 20px 10px;
+}
+
+.lt-ie8 .jumbotron .btn-group {
+  width: 80px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
