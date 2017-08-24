@@ -2,31 +2,77 @@
 
 <html lang="en">
 <head>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/bootstrap-sass.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/main.css">
+<script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
-  <title>Custom Parameter Control Widget for Tableau (Public)</title>
-  <script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
 
-  <script type="text/javascript">
-        function initViz() {
-            var containerDiv = document.getElementById("vizContainer"),
-                url = "https://public.tableau.com/views/CustomParameterControl/Dashboard1",
-                options = {
-                    hideTabs: true,
-                    device: "phone",
-                    onFirstInteractive: function () {
-                        console.log("We're up-n-runnin'");
-                    }
-                };
-            
-            var viz = new tableau.Viz(containerDiv, url, options); 
-        }
-  </script>
+<title>Custom Parameter Control Widget for Tableau (Public)</title>
+<script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+
+<script type="text/javascript">
+function initViz() {
+  var containerDiv = document.getElementById("vizContainer"),
+      url = "https://public.tableau.com/views/CustomParameterControl/Dashboard1",
+      options = {
+hideTabs: true,
+          device: "phone",
+          onFirstInteractive: function () {
+            console.log("We're up-n-runnin'");
+          }
+      };
+
+  var viz = new tableau.Viz(containerDiv, url, options); 
+}
+</script>
 </head>
 
-<body onload="initViz();">
-<div id="content" >
+<body onload="initViz();" style="overflow: auto">
+<div class="container">
   <div id="vizContainer" ></div>
-</div>
+      <div class="row marketing">
+        <div class="col-lg-8">
+          <h4>Custom Parameter Control</h4>
+          <p>If you're tired with the same slider parameter control in your Tableau Dashboard here is a nice trick to use any kind of JS widget to change your parameter.
+          The trick that your embedded HTML frame can access the tableau javascript object from <em>inside</em> the dashboard. This is simple done by accessing window.top.tableau from your HTML frame.</p>
+          <p>The method works from Tableau Public and Tableau Server as well.</p>
+
+          <h4>Code example</h4>          
+          <pre class="code_block">
+// The trick:  parent.parent in vizportal and window.top for tableau public 
+getTableau = function() {
+  return window.top.tableau || parent.parent.tableau;
+};
+
+getCurrentViz = function() {
+  return getTableau().VizManager.getVizs()[0];
+};
+
+getCurrentWorkbook = function() {
+  return getCurrentViz().getWorkbook();
+};
+
+getCurrentWorksheet = function() {
+  return getCurrentViz().getWorkbook().getActiveSheet().getWorksheets()[0];
+};
+</pre>
+          
+          
+          <a href="https://github.com/tfoldi/tableau-js-api-without-embed/blob/gh-pages/jog.html#L25">Click here for full code</a>
+        </div>
+      </div>
+
+      <div class="footer">
+
+        <p>Custom Parameter widget by <a href="https://twitter.com/tfoldi">@tfoldi</a>. Detailed blog will be published on <a href="http://databoss.starschema.net">databoss</a></p>
+        <p>The knob widget is <a href="http://www.ohsean.net/plugins/jogdial/">JogDial.js</a> by <a href="http://www.ohsean.net" target="_blank">Sean Oh</a></p>
+
+      </div>
+
+
+
 </body>
 </html>
 
