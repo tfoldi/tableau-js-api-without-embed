@@ -12,6 +12,8 @@
                 url = "https://public.tableau.com/views/CustomParameterControl/Dashboard1",
                 options = {
                     hideTabs: true,
+                    device: "phone",
+                    hideToolbar: true,
                     onFirstInteractive: function () {
                         console.log("We're up-n-runnin'");
                     }
@@ -23,8 +25,9 @@
 </head>
 
 <body onload="initViz();">
-  <div id="vizContainer"></div>
-
+<div id="content" style="width: 375px; height: 667px">
+  <div id="vizContainer" ></div>
+</div>
 </body>
 </html>
 
