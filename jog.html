@@ -45,6 +45,8 @@ $(document).ready(function(){
 		{wheelSize:'200px', knobSize:'70px', minDegree:0, maxDegree:360, degreeStartAt: 0})
 		.on('mousemove', function(evt){
 			$('#jog_dial_one_meter div').css('width', Math.round((evt.target.rotation/360)*100) + '%' );
+		})
+		.on('mouseup', function(evt){
       getCurrentWorkbook().changeParameterValueAsync('Param', (evt.target.rotation/360) ); 
 		});
 
