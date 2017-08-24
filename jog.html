@@ -16,6 +16,41 @@
     </head>
     <body>
 
+    <script src="https:////ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+    <script src="jogDial.min.js"></script>
+    <script>
+
+// The trick:  parent.parent in vizportal and window.top for tableau public 
+getTableau = function() {
+  return window.top.tableau || parent.parent.tableau;
+};
+
+getCurrentViz = function() {
+  return getTableau().VizManager.getVizs()[0];
+};
+
+getCurrentWorkbook = function() {
+  return getCurrentViz().getWorkbook();
+};
+
+getCurrentWorksheet = function() {
+  return getCurrentViz().getWorkbook().getActiveSheet().getWorksheets()[0];
+};
+
+
+$(document).ready(function(){	
+	
+	var dialOne = JogDial(document.getElementById('jog_dial_one'), 
+		{wheelSize:'200px', knobSize:'70px', minDegree:0, maxDegree:360, degreeStartAt: 0})
+		.on('mousemove', function(evt){
+			$('#jog_dial_one_meter div').css('width', Math.round((evt.target.rotation/360)*100) + '%' );
+      getCurrentWorkbook().getCurrentWorkbook().changeParameterValueAsync('Param', (evt.target.rotation/360) ); 
+		});
+
+});
+    </script>
+
     <div class="container">
       <div class="jumbotron">
         <div id="dials">
@@ -28,10 +63,6 @@
 
     </div> <!-- /container -->
     
-        <script src="https:////ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-        <script src="jogDial.min.js"></script>
-        <script src="js/main.js"></script>
 
     </body>
 </html>
