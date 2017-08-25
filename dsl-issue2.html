@@ -11,7 +11,6 @@
                 url = "https://public.tableau.com/views/DSL_Test/Test",
                 options = {
                     hideTabs: true,
-                    device: "desktop"
                 };
             
             var viz = new tableau.Viz(containerDiv, url, options); 
@@ -21,7 +20,7 @@
 </head>
 
 <body onload="initViz();">
-  <div id="vizContainer"></div>
+  <div id="vizContainer style="width: 700px; height: 300px"></div>
 
 </body>
 </html>
